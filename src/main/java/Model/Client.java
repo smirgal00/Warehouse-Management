@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Represents a Client
+ */
+
 public class Client {
     private String address;
     private String name;

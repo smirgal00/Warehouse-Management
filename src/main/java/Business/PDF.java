@@ -1,6 +1,5 @@
 package Business;
 
-import DataAccess.Data;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -13,17 +12,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+/**
+ * Class used to manipulate PDF files
+ */
 
 public class PDF {
     Document doc;
+    String title;
 
     public PDF(Integer option, Integer count) throws FileNotFoundException, DocumentException {
         doc = new Document();
-        String title = "";
+        title = "";
 
         switch (option) {
             case 1:
-                title = "Order report";
+                title = "Order report ";
                 break;
             case 2:
                 title = "Product report";
@@ -31,12 +34,14 @@ public class PDF {
             case 3:
                 title = "Client report";
                 break;
+            case 4:
+                title = "Bill";
+                break;
         }
 
         PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(title + " " + count + ".pdf"));
         doc.open();
 
-        setDocumentTitle(title);
     }
 
     private void setDocumentTitle(String title) {
@@ -53,12 +58,51 @@ public class PDF {
 
     }
 
-    public void insertClientTable(ResultSet rs) throws SQLException, DocumentException {
+    /**
+     * Generates a report in a PDF file
+     * @param rs Results that need to be written in the PDF file
+     * @throws SQLException Exception thrown by the connection to the database
+     * @throws DocumentException Exception thrown by the handling of the PDF document
+     */
+
+    public void createReport(ResultSet rs) throws SQLException, DocumentException {
         PdfPTable table = new PdfPTable(rs.getMetaData().getColumnCount());
+        setDocumentTitle(title);
 
         addHeader(table, rs);
         addRows(table, rs);
         doc.add(table);
+        doc.close();
+    }
+
+    /**
+     * Generates a bil in a PDF file
+     * @param rs Results that need to be written in the PDF file
+     * @throws SQLException Exception thrown by the connection to the database
+     * @throws DocumentException Exception thrown by the handling of the PDF document
+     */
+
+    public void generateBill(ResultSet rs) throws SQLException, DocumentException {
+        setDocumentTitle(title);
+        Integer count = 0;
+
+        Paragraph paragraph = new Paragraph();
+        while (rs.next()) {
+            paragraph.clear();
+            paragraph.add("Client " + rs.getString("Name") + " ordered " +
+                    rs.getString("Product") +
+                    " " +
+                    rs.getString("Quantity") +
+                    " with a price of " +
+                    rs.getString("Price") +
+                    "."
+            );
+        }
+        if(!paragraph.toString().equals("")) {
+            paragraph.setFont(FontFactory.getFont(FontFactory.TIMES, 14, BaseColor.BLACK));
+            doc.add(paragraph);
+            closeDocument();
+        }
     }
 
     private void addHeader(PdfPTable table, ResultSet rs) throws SQLException {
@@ -85,12 +129,13 @@ public class PDF {
 
         ArrayList<String> list = new ArrayList<String>();
 
-        while(rs.next()) {
-            for(int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+        while (rs.next()) {
+            list.clear();
+            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 list.add(rs.getString(i + 1));
             }
 
-            Stream<String>  stream = list.stream();
+            Stream<String> stream = list.stream();
 
             stream.forEach(
                     columnInfo -> {

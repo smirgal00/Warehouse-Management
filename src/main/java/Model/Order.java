@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Represent and Order
+ */
+
 public class Order {
     private Integer ID;
     private String Name;

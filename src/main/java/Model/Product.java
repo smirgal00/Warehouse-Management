@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Represents a Product
+ */
+
 public class Product {
     private String name;
     private Integer stock;

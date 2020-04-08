@@ -1,11 +1,17 @@
 package DataAccess;
 
-import java.io.IOException;
 import java.sql.*;
-
 import Connection.DBase;
 
+/**
+ * Class used for executing given queries
+ * And returning their results, if necessary
+ */
+
 public class Data {
+    /**
+     * Represents the connection instance of the database
+     */
     Connection connection;
 
     public Data() {
@@ -24,6 +30,12 @@ public class Data {
         return statement;
     }
 
+    /**
+     *
+     * @param query Represents the SQL query that need to be executed
+     * @return Returns the result from the query, saved in a specific class used to store them
+     */
+
     public ResultSet createResult(String query) {
         ResultSet resultSet = null;
         PreparedStatement statement = generateStatement(query);
@@ -40,6 +52,11 @@ public class Data {
         return resultSet;
     }
 
+    /**
+     *
+     * @param query Represents the SQL query that need to be executed
+     */
+
     public void callProcedure(String query) {
         PreparedStatement statement = generateStatement(query);
 
@@ -48,7 +65,9 @@ public class Data {
                 statement.executeQuery(query);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            if(query.contains("insertClient")) {
+                System.out.println("Clientul deja exista!");
+            }
         }
     }
 }

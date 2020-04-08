@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
+/**
+ * Singleton type class used for creating a connection to the database only once
+ */
+
 public class DBase {
     private static final Logger Logs = Logger.getLogger(DBase.class.getName());
     private static final String Driver = "com.mysql.cj.jdbc.Driver";
@@ -38,6 +42,11 @@ public class DBase {
         return Database.createConnection();
     }
 
+    /**
+     *
+     * @param connection Connection used to access the database
+     */
+
     public static void close(Connection connection) {
         try {
             connection.close();
@@ -45,6 +54,11 @@ public class DBase {
             System.out.println("Connection couldn't be closed!");
         }
     }
+
+    /**
+     *
+     * @param statement Statement used for executing a query in the database
+     */
 
     public static void close(Statement statement) {
         try {
