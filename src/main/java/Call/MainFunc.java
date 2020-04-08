@@ -64,7 +64,7 @@ public class MainFunc {
     }
 
     public static void main(String[] args) throws IOException, SQLException, DocumentException {
-        MainFunc m = new MainFunc("D:\\PT2020\\Warehouses\\in.txt");
+        MainFunc m = new MainFunc(args[0]);
 
         ArrayList<String> s = m.getInstructions();
 
