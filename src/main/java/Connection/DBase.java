@@ -27,6 +27,10 @@ public class DBase {
         }
     }
 
+    /**
+     * Creates connection object for database
+     * @return Connection object
+     */
     private Connection createConnection() {
         Connection connection = null;
         try {
@@ -38,6 +42,10 @@ public class DBase {
         return connection;
     }
 
+    /**
+     * Used for retrieving connection object
+     * @return Connection object
+     */
     public static Connection getConnection() {
         return Database.createConnection();
     }

@@ -21,12 +21,22 @@ public class MainFunc {
     Integer billCount;
     Logic logic;
 
+    /**
+     *
+     * @param path Path for input file
+     * @throws FileNotFoundException thrown when file handling is faulty
+     */
     public MainFunc(String path) throws FileNotFoundException {
         parser = new Parser(path);
         clientCount = orderCount = productCount = billCount = 1;
         logic = new Logic();
     }
 
+    /**
+     * Saves the generated instructions from parser
+     * @return List of instructions
+     * @throws IOException thrown when reading from file is faulty
+     */
     public ArrayList<String> getInstructions() throws IOException {
         return parser.createInstructions();
     }
@@ -58,6 +68,12 @@ public class MainFunc {
                 logic.insertOrder(4, billCount++, s);
             }
             if(s.contains("insertProduct")) {
+                logic.insertProduct(s);
+            }
+            if(s.contains("deleteClient")) {
+                logic.insertProduct(s);
+            }
+            if(s.contains("deleteProduct")) {
                 logic.insertProduct(s);
             }
         }

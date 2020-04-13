@@ -54,14 +54,6 @@ public class Logic {
         pdf.generateBill(data.createResult("select * from orderr where Name = '" + temp[1] + "'"));
     }
 
-    public void deleteClient(String query) {
-        data.callProcedure(query);
-    }
-
-    public void deleteOrder(String query) {
-        data.callProcedure(query);
-    }
-
     /**
      *
      * @param option Used for choosing file name and title.

@@ -18,6 +18,11 @@ public class Data {
         connection = DBase.getConnection();
     }
 
+    /**
+     * Creates a PrepareStatement object
+     * @param query SQL query
+     * @return PreparedStatement
+     */
     private PreparedStatement generateStatement(String query) {
         PreparedStatement statement;
         try {

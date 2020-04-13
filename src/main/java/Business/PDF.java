@@ -20,6 +20,14 @@ public class PDF {
     Document doc;
     String title;
 
+    /**
+     *
+     * @param option option for giving the file a title
+     * @param count count for number of file
+     * @throws FileNotFoundException thrown if given file doesn't exist
+     * @throws DocumentException thrown when there's an error with PDF handling
+     */
+
     public PDF(Integer option, Integer count) throws FileNotFoundException, DocumentException {
         doc = new Document();
         title = "";
@@ -44,6 +52,10 @@ public class PDF {
 
     }
 
+    /**
+     * Sets the newly create document's title
+     * @param title Title
+     */
     private void setDocumentTitle(String title) {
         try {
             Font font = FontFactory.getFont(FontFactory.TIMES_BOLD, 25, BaseColor.BLACK);
@@ -105,6 +117,12 @@ public class PDF {
         }
     }
 
+    /**
+     * Defines table header
+     * @param table table file destination
+     * @param rs Result
+     * @throws SQLException thrown when database interaction is faulty
+     */
     private void addHeader(PdfPTable table, ResultSet rs) throws SQLException {
         String[] title = new String[rs.getMetaData().getColumnCount()];
         for (int i = 0; i < title.length; i++) {
@@ -125,6 +143,12 @@ public class PDF {
 
     }
 
+    /**
+     * Fills table with data
+     * @param table table file destination
+     * @param rs Result
+     * @throws SQLException thrown when database interaction is faulty
+     */
     private void addRows(PdfPTable table, ResultSet rs) throws SQLException {
 
         ArrayList<String> list = new ArrayList<String>();
@@ -151,6 +175,9 @@ public class PDF {
 
     }
 
+    /**
+     * Closes document
+     */
     public void closeDocument() {
         doc.close();
     }

@@ -29,6 +29,10 @@ public class Parser {
         reader = new BufferedReader(file);
     }
 
+    /**
+     * Reads and stores every line in the input file
+     * @throws IOException When there is a problem regarding the input file
+     */
     private void readInstructions() throws IOException {
         String temp;
         while ((temp = reader.readLine()) != null && temp.length() != 0) {
@@ -37,7 +41,7 @@ public class Parser {
     }
 
     /**
-     *
+     *  Parses through every line read and transforms it into its specific SQL query
      * @return Returns a list with SQL queries
      * @throws IOException thrown if file handling is incorrect
      */

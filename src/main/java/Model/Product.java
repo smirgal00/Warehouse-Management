@@ -15,6 +15,10 @@ public class Product {
         this.price = price;
     }
 
+    /**
+     * Converts Product into a string formulation
+     * @return String
+     */
     @Override
     public String toString() {
         String temp;
