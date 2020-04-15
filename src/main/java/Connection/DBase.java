@@ -15,7 +15,7 @@ public class DBase {
     private static final String Driver = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost/warehouse";
     private static final String User = "user=root";
-    private static final String Pass = "password=Lenesu2@";
+    private static final String Pass = "password=root";
 
     private static DBase Database = new DBase();
 
